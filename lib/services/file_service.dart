@@ -12,20 +12,14 @@ class FileService {
   
   static Future<void> findMdFiles() async {
     _mdFiles.clear();
-    final vaultPath = ConfigService.vaultPath;
-    final directory = Directory(vaultPath);
-    
-    if (!await directory.exists()) {
-      return;
-    }
-    
+    final directory = Directory(ConfigService.vaultPath);
+    if (!await directory.exists()) return;
     await _scanDirectory(directory);
   }
   
   static Future<void> _scanDirectory(Directory dir) async {
     try {
       final entities = await dir.list().toList();
-      
       for (final entity in entities) {
         if (entity is File && entity.path.endsWith('.md')) {
           _mdFiles.add(entity.path);
@@ -33,18 +27,14 @@ class FileService {
           await _scanDirectory(entity);
         }
       }
-    } catch (e) {
-      // Игнорируем ошибки доступа
-    }
+    } catch (e) {}
   }
   
   static String? getRandomNote() {
     if (_mdFiles.isEmpty) return null;
-    
     final random = DateTime.now().millisecondsSinceEpoch;
     final index = random % _mdFiles.length;
     final filePath = _mdFiles[index];
-    
     _addToHistory(filePath);
     return filePath;
   }
@@ -61,9 +51,8 @@ class FileService {
     if (_historyIndex < _history.length - 1) {
       _historyIndex++;
       return _history[_historyIndex];
-    } else {
-      return getRandomNote();
     }
+    return getRandomNote();
   }
   
   static String? getPrevNote() {
@@ -80,9 +69,7 @@ class FileService {
       if (await file.exists()) {
         return await file.readAsString();
       }
-    } catch (e) {
-      // Игнорируем ошибки чтения
-    }
+    } catch (e) {}
     return null;
   }
   

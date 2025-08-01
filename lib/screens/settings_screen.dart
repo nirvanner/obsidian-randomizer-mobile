@@ -31,10 +31,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         actions: [
           TextButton(
             onPressed: _saveSettings,
-            child: const Text(
-              'Сохранить',
-              style: TextStyle(color: Colors.white),
-            ),
+            child: const Text('Сохранить', style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -61,19 +58,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             const Text(
               'Путь к хранилищу Obsidian',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
             ),
             const SizedBox(height: 8),
             const Text(
               'Укажите путь к папке с вашими заметками Obsidian',
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 14,
-              ),
+              style: TextStyle(color: Colors.grey, fontSize: 14),
             ),
             const SizedBox(height: 16),
             TextField(
@@ -93,9 +83,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onPressed: _resetToDefault,
                     icon: const Icon(Icons.refresh),
                     label: const Text('Сбросить'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF404244),
-                    ),
+                    style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF404244)),
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -104,9 +92,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onPressed: _browseFolder,
                     icon: const Icon(Icons.folder_open),
                     label: const Text('Выбрать'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF7C3AED),
-                    ),
+                    style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF7C3AED)),
                   ),
                 ),
               ],
@@ -126,11 +112,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             const Text(
               'Информация',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
             ),
             const SizedBox(height: 16),
             const Text(
@@ -138,11 +120,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               '• Поддерживается навигация по истории\n'
               '• Markdown разметка отображается корректно\n'
               '• Настройки сохраняются автоматически',
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 14,
-                height: 1.5,
-              ),
+              style: TextStyle(color: Colors.grey, fontSize: 14, height: 1.5),
             ),
           ],
         ),
@@ -155,8 +133,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _browseFolder() {
-    // В Flutter для Android нужно использовать file_picker
-    // Пока что просто показываем диалог
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -179,13 +155,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   void _saveSettings() async {
     await ConfigService.setVaultPath(_vaultPathController.text);
-    
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Настройки сохранены'),
-          backgroundColor: Colors.green,
-        ),
+        const SnackBar(content: Text('Настройки сохранены'), backgroundColor: Colors.green),
       );
       Navigator.pop(context);
     }

@@ -29,10 +29,7 @@ class _RandomizerScreenState extends State<RandomizerScreen> {
   }
 
   Future<void> _showRandomNote() async {
-    setState(() {
-      _isLoading = true;
-    });
-
+    setState(() => _isLoading = true);
     final notePath = FileService.getRandomNote();
     if (notePath != null) {
       await _loadNote(notePath);
@@ -50,7 +47,6 @@ class _RandomizerScreenState extends State<RandomizerScreen> {
     final content = await FileService.readNoteContent(notePath);
     final title = FileService.getNoteTitle(notePath);
     final pathDisplay = FileService.getNotePath(notePath);
-
     setState(() {
       _currentNotePath = notePath;
       _currentNoteContent = content ?? 'Ошибка чтения файла';
@@ -62,16 +58,12 @@ class _RandomizerScreenState extends State<RandomizerScreen> {
 
   Future<void> _showNextNote() async {
     final notePath = FileService.getNextNote();
-    if (notePath != null) {
-      await _loadNote(notePath);
-    }
+    if (notePath != null) await _loadNote(notePath);
   }
 
   Future<void> _showPrevNote() async {
     final notePath = FileService.getPrevNote();
-    if (notePath != null) {
-      await _loadNote(notePath);
-    }
+    if (notePath != null) await _loadNote(notePath);
   }
 
   @override
@@ -85,9 +77,7 @@ class _RandomizerScreenState extends State<RandomizerScreen> {
             onPressed: () async {
               await Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const SettingsScreen(),
-                ),
+                MaterialPageRoute(builder: (context) => const SettingsScreen()),
               );
               _initializeApp();
             },
@@ -97,9 +87,7 @@ class _RandomizerScreenState extends State<RandomizerScreen> {
       body: Column(
         children: [
           _buildNoteInfo(),
-          Expanded(
-            child: _buildNoteContent(),
-          ),
+          Expanded(child: _buildNoteContent()),
           _buildNavigationButtons(),
         ],
       ),
@@ -115,10 +103,7 @@ class _RandomizerScreenState extends State<RandomizerScreen> {
           if (_currentNotePathDisplay.isNotEmpty)
             Text(
               _currentNotePathDisplay,
-              style: const TextStyle(
-                color: Colors.grey,
-                fontSize: 12,
-              ),
+              style: const TextStyle(color: Colors.grey, fontSize: 12),
             ),
           const SizedBox(height: 8),
           Text(
@@ -135,12 +120,7 @@ class _RandomizerScreenState extends State<RandomizerScreen> {
   }
 
   Widget _buildNoteContent() {
-    if (_isLoading) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
-    }
-
+    if (_isLoading) return const Center(child: CircularProgressIndicator());
     if (_currentNoteContent == null) {
       return const Center(
         child: Text(
@@ -149,7 +129,6 @@ class _RandomizerScreenState extends State<RandomizerScreen> {
         ),
       );
     }
-
     return Container(
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(16),
@@ -160,34 +139,12 @@ class _RandomizerScreenState extends State<RandomizerScreen> {
       child: Markdown(
         data: _currentNoteContent!,
         styleSheet: MarkdownStyleSheet(
-          h1: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-          h2: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-          h3: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-          p: const TextStyle(
-            fontSize: 16,
-            color: Colors.white,
-            height: 1.4,
-          ),
-          strong: const TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-          em: const TextStyle(
-            fontStyle: FontStyle.italic,
-            color: Colors.white,
-          ),
+          h1: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+          h2: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+          h3: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+          p: const TextStyle(fontSize: 16, color: Colors.white, height: 1.4),
+          strong: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          em: const TextStyle(fontStyle: FontStyle.italic, color: Colors.white),
         ),
       ),
     );
@@ -203,25 +160,19 @@ class _RandomizerScreenState extends State<RandomizerScreen> {
             onPressed: _showPrevNote,
             icon: const Icon(Icons.arrow_back),
             label: const Text('Назад'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF404244),
-            ),
+            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF404244)),
           ),
           ElevatedButton.icon(
             onPressed: _showRandomNote,
             icon: const Icon(Icons.casino),
             label: const Text('Случайная'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF7C3AED),
-            ),
+            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF7C3AED)),
           ),
           ElevatedButton.icon(
             onPressed: _showNextNote,
             icon: const Icon(Icons.arrow_forward),
             label: const Text('Вперед'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF404244),
-            ),
+            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF404244)),
           ),
         ],
       ),
