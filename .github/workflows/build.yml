@@ -24,7 +24,7 @@ jobs:
     - name: Build APK
       run: flutter build apk --release
     
-    - name: Upload APK
+    - name: Upload APK as artifact
       uses: actions/upload-artifact@v3
       with:
         name: obsidian-randomizer-apk
@@ -57,5 +57,7 @@ jobs:
           ## 🔧 Требования:
           - Android 5.0+ (API 21+)
           - ~50 MB свободного места
+        draft: false
+        prerelease: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
