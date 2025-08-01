@@ -1,0 +1,61 @@
+name: Build APK
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.0.0'
+        channel: 'stable'
+    
+    - name: Install dependencies
+      run: flutter pub get
+    
+    - name: Build APK
+      run: flutter build apk --release
+    
+    - name: Upload APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: obsidian-randomizer-apk
+        path: build/app/outputs/flutter-apk/app-release.apk
+        retention-days: 30
+    
+    - name: Create Release
+      if: github.ref == 'refs/heads/main'
+      uses: softprops/action-gh-release@v1
+      with:
+        files: build/app/outputs/flutter-apk/app-release.apk
+        tag_name: v1.0.0
+        name: Obsidian Randomizer v1.0.0
+        body: |
+          🎉 Первый релиз Obsidian Randomizer Mobile!
+          
+          ## 📱 Что нового:
+          - Полнофункциональное приложение для просмотра случайных заметок
+          - Поддержка Markdown
+          - Темная тема в стиле Obsidian
+          - Настройка пути к хранилищу
+          - Навигация по истории
+          
+          ## 📥 Установка:
+          1. Скачайте APK файл
+          2. Включите "Неизвестные источники" в настройках Android
+          3. Установите приложение
+          4. Настройте путь к Obsidian vault
+          
+          ## 🔧 Требования:
+          - Android 5.0+ (API 21+)
+          - ~50 MB свободного места
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
