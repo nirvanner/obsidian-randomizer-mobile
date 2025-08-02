@@ -17,7 +17,7 @@
 ### 📱 Скачать и установить APK (как в App Store!)
 
 #### ⭐ Прямая ссылка на скачивание:
-**[Скачать APK v1.0.1](https://github.com/nirvanner/obsidian-randomizer-mobile/releases/download/v1.0.1/obsidian-randomizer-v1.0.1.apk)**
+**[Скачать APK v1.0.2](https://github.com/nirvanner/obsidian-randomizer-mobile/releases/download/v1.0.2/app-release.apk)**
 
 #### 📋 Пошаговая установка:
 1. **Скачайте APK** по ссылке выше
