@@ -23,7 +23,7 @@ class ObsidianRandomizerApp extends StatelessWidget {
           backgroundColor: Color(0xFF2D2F34),
           foregroundColor: Colors.white,
         ),
-        cardTheme: const CardThemeData(color: Color(0xFF2D2F34)),
+        cardTheme: const CardTheme(color: Color(0xFF2D2F34)),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF7C3AED),
